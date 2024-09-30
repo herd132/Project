@@ -35,7 +35,8 @@ public class StockService {
 			System.out.println("1. 현재 보유 주식 조회하기");
 			System.out.println("2. 주식 매수하기");
 			System.out.println("3. 주식 매도하기");
-			System.out.println("4. 배당률 순으로 조회하기");
+			System.out.println("4. 주식 정보 변경하기");
+			System.out.println("5. 배당률 순으로 조회하기");
 			System.out.println("0. 프로그램 종료");
 			System.out.print("메뉴를 선택 해 주세요 : ");
 			
@@ -44,7 +45,8 @@ public class StockService {
 			case 1 : displayAllStocks(); break;
 			case 2 : buyStock(); break;
 			case 3 : sellStock(); break;
-			case 4 : displayRateStock(); break;
+			case 4 : updateStock(); break;
+			case 5 : displayRateStock(); break;
 			case 0 : 
 				System.out.println("프로그램을 종료합니다");
 				break;
@@ -167,7 +169,119 @@ public class StockService {
         }
     }
 	
+//	public void sellStock() {
+//		System.out.println("===주식 매도하기===");
+//		System.out.println("<현재 보유중인 주식 목록>");
+//		 int index = 1;
+//       for (Stock stk : stockSet) {
+//           System.out.println(index + ". " + stk);
+//           index++;
+//       }
+//		System.out.println("매도할 주식을 입력하세요");
+//		String sName = sc.next();
+//		
+//		for(Stock stk : stockSet) {
+//			
+//			if(stk.getName().equals(sName)) {
+//				System.out.println("매도할 수량 입력");
+//				int sCount = sc.nextInt();
+//				int cCount = stk.getCount() - sCount;
+//				System.out.println(stk.getName() + "을/를" + sCount + "주 매도하였습니다");
+//				stk.setCount(cCount);
+//				if(stk.getCount() == 0) {
+//					System.out.println("전량 매도하였습니다");
+//					stockSet.remove(stk); // 리무브 안됨
+//					return;
+//				}
+//				
+//			} else {
+//				System.out.println("해당 주식을 찾을 수 없습니다.");
+//				return;
+//			}
+//		}
+//	}
 	
+	
+    /**
+     *  주식 정보 변경하기
+     */    
+    public void updateStock() {
+        System.out.println("===주식 정보 변경하기===");
+        System.out.println("<현재 보유중인 주식 목록>");
+        
+        int index = 1;
+        for (Stock stk : stockSet) {
+            System.out.println(index + ". " + stk);
+            index++;
+        }
+        
+        ArrayList<Stock> stockList = new ArrayList<Stock>(stockSet); // stockSet을 리스트로 변환
+        
+        int updateMenu = 0;
+        
+        System.out.print("변경 할 주식 번호를 입력 해주세요 : ");
+        int stockNum = sc.nextInt();
+        
+        if (stockNum > 0 && stockNum <= stockList.size()) {
+        	
+            Stock stk = stockList.get(stockNum - 1);
+            stockSet.remove(stk);
+            
+            System.out.println("1. 주식명");
+            System.out.println("2. 주식 가격");
+            System.out.println("3. 주식 배당률");
+            System.out.println("4. 주식 보유수량");
+            System.out.println("0. 변경 종료");
+            System.out.print("변경할 내용을 선택해 주세요 : ");
+            
+            updateMenu = sc.nextInt();
+            sc.nextLine();
+    			 
+            switch(updateMenu) {
+            case 1 :
+                System.out.println("===주식명 변경===");
+                System.out.print("변경할 주식명을 입력하세요 : ");
+                String name = sc.next();
+                stk.setName(name);
+                break;
+                
+            case 2 :
+                System.out.println("===주식 가격 변경===");
+                System.out.print("변경할 주식가격을 입력하세요 : ");
+                int price = sc.nextInt();
+                stk.setPrice(price);
+                break;
+                
+            case 3 :
+                System.out.println("===배당률 변경===");
+                System.out.print("변경할 배당률을 입력하세요 : ");
+                double allocation = sc.nextDouble();
+                stk.setAllocation(allocation);
+                break;
+                
+            case 4 :
+                System.out.println("===보유수량 변경===");
+                System.out.print("변경할 보유수량을 입력하세요 : ");
+                int count = sc.nextInt();
+                stk.setCount(count);
+                break;
+                
+            case 0 : 
+                System.out.println("변경을 종료합니다."); 
+                break;
+                
+            default : 
+                System.out.println("메뉴에 있는 번호만 선택해주세요."); 
+                break;
+        }
+        stockSet.add(stk);
+        System.out.println("변경 완료");
+        
+        }else {
+        	System.out.println("주식 번호를 확인 후 다시 시도해주세요.");
+    	}
+    }
+    
 	/**
 	 *  배당률 순으로 정렬
 	 */
