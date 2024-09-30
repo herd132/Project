@@ -275,7 +275,11 @@ public class StockService {
                 break;
         }
         stockSet.add(stk);
+<<<<<<< HEAD
         System.out.println("수정 완료");
+=======
+        System.out.println("변경 완료");
+>>>>>>> 3148a41769c91646ab23a45b757dd6f24f15bb2e
         
         }else {
         	System.out.println("주식 번호를 확인 후 다시 시도해주세요.");
