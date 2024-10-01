@@ -1,22 +1,22 @@
 package hw.model.dto;
 
-import java.util.Objects;
-
 public class Stock {
 
 	private String name;
 	private int price;
 	private double allocation;
 	private int count;
+	private int num;
 	
 	public Stock() {}
 
-	public Stock(String name, int price, double allocation, int count) {
+	public Stock(String name, int price, double allocation, int count, int num) {
 		super();
 		this.name = name; //이름
 		this.price = price; //가격
 		this.allocation = allocation; //배당률
 		this.count = count; // 소지갯수
+		this.num = num; //번호
 	}
 
 	public String getName() {
@@ -51,30 +51,19 @@ public class Stock {
 		this.count = count;
 	}
 	
+	public int getNum() {
+		return num;
+	}
 	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(allocation, count, name, price);
+	public void setNum(int num) {
+		this.num = num;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Stock other = (Stock) obj;
-		return Double.doubleToLongBits(allocation) == Double.doubleToLongBits(other.allocation) && count == other.count
-				&& Objects.equals(name, other.name) && price == other.price;
-	}
 
 	@Override
 	public String toString() {
-		return String.format("이름 : %s / 가격 : %d / 배당율(연) : %s / 보유개수 : %d주 ",
-							name,price,allocation,count);
+		return String.format("%d.%s  / 가격 : %d / 배당율(연) : %s / 보유개수 : %d주 ",
+							num,name,price,allocation,count);
 	}
 	
 	
